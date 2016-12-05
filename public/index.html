@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Poll with sockets</title>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <script type="text/javascript" src="js/jquery-min.js"></script>
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+</head>
+<body>
+
+  <div id="main-container" class="container-fluid"></div>
+  <!-- Templates -->
+
+  <!-- Lobby -->
+  <script id="tpl-lobby" type="text/html">
+
+    <h1>Polls</h1>
+
+    <!-- List of chat rooms -->
+    <div id="list-container">
+      <% for(var roomId in data){ %>
+      <div class="room-item">
+        <a class="body-main" href="#/room/<%= roomId %>"><%= data[roomId].name %></a><br/>
+        <div class="body-aux">
+          (<%= data[roomId].members %> users)
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Input -->
+    <div id="chat-input">
+      <div>
+      <div class="form-group">
+        <label for="question">Poll Question:</label>
+          <input type="text" class="form-control" id="js-ipt-room-name" placeholder="Enter new question" input type="text" name="question"></input>
+      </div>
+      <div class="form-group">
+        <label for="choice1">Option 1:</label>
+         <input type="text" class="form-control" id="js-ipt-room-choiceOne" placeholder="Enter 1st option" name="choiceOne"></input>
+      </div>
+      <div class="form-group">
+        <label for="choice1">Option 2:</label>
+         <input type="text" class="form-control" id="js-ipt-room-choiceTwo" placeholder="Enter 2nd option" name="choiceTwo"></input>
+      </div>
+      <div class="form-group">
+        <label for="choice1">Option 3:</label>
+         <input type="text" class="form-control" id="js-ipt-room-choiceThree" placeholder="Enter 3rd option" name="choiceThree"></input>
+      </div>
+  </div>
+<button class="btn btn-default" id="js-btn-create-room" value="CREATE">Create</button>
+</div>
+
+</script>
+
+<!-- Chatroom -->
+<script id="tpl-room" type="text/html">
+  <a href="#/lobby">< Back to list of Polls</a>
+  <h1>Question: <%= data.room.name %></h1>
+  <div id="ballot">
+      <fieldset class="form-group">
+          <legend>Radio buttons</legend>
+          <div class="radio">
+            <label>
+              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="1" checked>
+                <%= data.room.choiceOne %>
+            </label>
+          </div>
+           <div class="radio">
+            <label>
+              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="2">
+                <%= data.room.choiceTwo %>
+            </label>
+          </div>
+           <div class="radio">
+            <label>
+              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="3">
+                <%= data.room.choiceThree %>
+            </label>
+          </div>
+      </fieldset>
+      <button type="submit" id="js-btn-vote-radio" class="btn btn-primary">Submit</button>
+  </div>
+  <div class="list-container">
+    <!-- Messages -->
+    <div id="chat-container"></div>
+
+</script>
+
+<!-- Chat item -->
+<script id="tpl-chat-item" type="text/html">
+  <div class="chat-item">
+    <div class="body-aux">
+    </div>
+    <div class="body-main">
+    </div>
+  </div>
+  <div id="chart"></div>
+  <script>
+  </script>
+
+</script>
+
+<!-- Chart  -->
+<script id="tpl-chart" type="text/html">
+</script>
+
+
+</script>
+    <!-- Don't add this as a file!
+    The path will be created when you run the server -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
