@@ -35,21 +35,27 @@ h1, h2, h3, h4, h5, h6{
   margin: 0;
   text-align:center;
 }
-
-a:link, a:visited, a:active, a:hover{
+a{
+color:#333333;
+}
+a:link, a:visited{
   outline: 0;
-  color: black;
+  color:#333333;
+}
+
+a:focus, a:active, a:hover{
+  color:#FC4A1A !important;
 }
 #graph{
   max-width:400px;
-  float:right;
+  padding-right:60px;
 }
 
-#heroText{
-  float:left;
+#graphHR{
+  margin-top:0px;
 }
 #mainTitle{
-  font-size:50px;
+  font-size:49px;
 }
 .form-control{
   border:2px solid #F7B733 !important;
@@ -57,7 +63,6 @@ a:link, a:visited, a:active, a:hover{
 
 #hero{
   margin-top:90px;
-  margin-bottom:90px;
 }
 
 .form-group{
@@ -67,6 +72,12 @@ a:link, a:visited, a:active, a:hover{
 .btn-default{
  border:2px solid #F7B733 !important;
  background-color: #F7B733 !important;
+}
+
+.btn-primary{
+  color: #333333 !important;
+  background-color: #F7B733 !important;
+  border-color: #F7B733 !important;
 }
 #main-container{
   text-align: left;
@@ -203,6 +214,7 @@ h2 {
 .bar{
   fill:#F7B733;
 }
+
 text.label{
   fill: #777777;
   color: #777777;
@@ -212,4 +224,10 @@ text.label{
 text.category{
   fill: #666666;
   font-size: 14px;
+}
+
+@media only screen and (min-width: 990px){
+  #heroText{
+    float:right;
+  }
 }
