@@ -24,79 +24,78 @@
   <script id="tpl-lobby" type="text/html">
 
     <h1>Current Polls</h1>
-    <!-- List of chat rooms -->
+    <!-- List of polls -->
     <div id="list-container">
-      <% for(var roomId in data){ %>
-      <div class="room-item">
-        <a class="body-main" href="#/room/<%= roomId %>"><%= data[roomId].name %></a><br/>
-        <div class="body-aux">
-          (<%= data[roomId].members %> users)
-        </div>
+      <% for(var pollId in data){ %>
+      <div class="poll-item">
+        <a class="body-main" href="#/poll/<%= pollId %>"><%= data[pollId].name %></a><br/>
+        <!-- <div class="body-aux">
+          (<%= data[pollId].members %> users)
+        </div> -->
       </div>
       <% } %>
     </div>
 
     <!-- Input -->
+    <hr>
      <h1>Create a Poll</h1>
-    <div id="chat-input">
-      <div>
-      <div class="form-group">
-        <label for="question">Poll Question:</label>
-          <input type="text" class="form-control" id="js-ipt-room-name" placeholder="Enter new question" input type="text" name="question"></input>
+        <div id="vote-input">
+          <div class="form-group">
+            <label for="question">Poll Question:</label>
+              <input type="text" class="form-control" id="js-ipt-poll-name" placeholder="Enter new question" input type="text" name="question"></input>
+          </div>
+          <div class="form-group">
+            <label for="choice1">Option 1:</label>
+             <input type="text" class="form-control" id="js-ipt-poll-choiceOne" placeholder="Enter 1st option" name="choiceOne"></input>
+          </div>
+          <div class="form-group">
+            <label for="choice1">Option 2:</label>
+             <input type="text" class="form-control" id="js-ipt-poll-choiceTwo" placeholder="Enter 2nd option" name="choiceTwo"></input>
+          </div>
+          <div class="form-group">
+            <label for="choice1">Option 3:</label>
+             <input type="text" class="form-control" id="js-ipt-poll-choiceThree" placeholder="Enter 3rd option" name="choiceThree"></input>
+          </div>
+          <button class="btn btn-default" id="js-btn-create-poll" value="CREATE">Create</button>
       </div>
-      <div class="form-group">
-        <label for="choice1">Option 1:</label>
-         <input type="text" class="form-control" id="js-ipt-room-choiceOne" placeholder="Enter 1st option" name="choiceOne"></input>
-      </div>
-      <div class="form-group">
-        <label for="choice1">Option 2:</label>
-         <input type="text" class="form-control" id="js-ipt-room-choiceTwo" placeholder="Enter 2nd option" name="choiceTwo"></input>
-      </div>
-      <div class="form-group">
-        <label for="choice1">Option 3:</label>
-         <input type="text" class="form-control" id="js-ipt-room-choiceThree" placeholder="Enter 3rd option" name="choiceThree"></input>
-      </div>
-    </div>
-    <button class="btn btn-default" id="js-btn-create-room" value="CREATE">Create</button>
-    </div>
   </script>
 
-  <!-- Chatroom -->
-  <script id="tpl-room" type="text/html">
+  <!-- poll -->
+  <script id="tpl-poll" type="text/html">
   <a href="#/lobby">< Back to list of Polls</a>
-  <h1>Question: <%= data.room.name %></h1>
+  <h1>Question: <%= data.poll.name %></h1>
   <div id="ballot">
       <fieldset class="form-group">
           <legend>Radio buttons</legend>
           <div class="radio">
             <label>
               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="1" checked>
-                <%= data.room.choiceOne %>
+                <%= data.poll.choiceOne %>
             </label>
           </div>
            <div class="radio">
             <label>
               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="2">
-                <%= data.room.choiceTwo %>
+                <%= data.poll.choiceTwo %>
             </label>
           </div>
            <div class="radio">
             <label>
               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="3">
-                <%= data.room.choiceThree %>
+                <%= data.poll.choiceThree %>
             </label>
           </div>
       </fieldset>
       <button type="submit" id="js-btn-vote-radio" class="btn btn-primary">Submit</button>
   </div>
   <div class="list-container">
-    <!-- Messages -->
-    <div id="chat-container"></div>
+    <!-- Vote Container -->
+    <div id="vote-container"></div>
   </script>
 
-  <!-- Chat item -->
-  <script id="tpl-chat-item" type="text/html">
-  <div class="chat-item">
+  <!-- Vote item -->
+  <script id="tpl-vote-item" type="text/html">
+  <div class="vote-item">
     <div class="body-aux">
     </div>
     <div class="body-main">
@@ -117,7 +116,6 @@
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/moment.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-  <footer>FOOTER</footer>  
+  <footer>FOOTER</footer>
 </body>
 </html>
-

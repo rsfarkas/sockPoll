@@ -1,8 +1,9 @@
 // Credit: Gabriel Gianordoli
+//Credit Umi Syam
 /*---------- BASIC SETUP ----------*/
 var express =  require('express');
-var bodyParser = require('body-parser'); // helper for parsing HTTP requests
-var app = express(); // our Express app
+var bodyParser = require('body-parser');
+var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var PORT = 4000;
@@ -10,53 +11,44 @@ var PORT = 4000;
 var db;
 
 // Body Parser
-app.use(bodyParser.urlencoded({ extended: false }));// parse application/x-www-form-urlencoded
-app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Express server
 app.use(function(req, res, next) {
-  // Setup a Cross Origin Resource sharing
-  // See CORS at https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+  // https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log('incoming request from ---> ' + ip);
   var url = req.originalUrl;
-  console.log('### requesting ---> ' + url); // Show the URL user just hit by user
+  console.log('### requesting ---> ' + url);
   next();
 });
 
 app.use('/', express.static(__dirname + '/public'));
 
-
-
-// MONGO SETUP
-var uri = 'mongodb://gmr-db-user:hkFBsb9IbN@ds053156.mlab.com:53156/dinnertime';
+  /*-------------- MONGODB --------------*/
+var uri = 'mongodb://admin:admin@ds127428.mlab.com:27428/sockpoll';
 
 MongoClient.connect(uri, function(err, database){
   if (err) return console.log(err);
   db = database;
   console.log("Database connection ready");
 
-  var polls = db.collection('chart');
+  var surveys = db.collection('surveys');
 
-  // -----> Socket.io setup
+  /*-------------- SOCKET.IO + SERVER SETUP --------------*/
   var server = require('http').Server(app);
   var io = require('socket.io')(server);
-
-
-
 
   server.listen(PORT, function(){
     console.log('Express server is running at ' + PORT);
   });
 
-  var rooms = {};
+  var polls = {};
 
-  /*-------------- APP --------------*/
-
-
-
+  /*-------------- CUSTOM JS SETUP --------------*/
   var localArray = [];
   function createArr(key, value, index) {
     localArray[index] = {
@@ -70,60 +62,54 @@ MongoClient.connect(uri, function(err, database){
 
   };
 
+  /*-------------- INITIATE SOCKET CONNECTION --------------*/
   io.on('connection', function(socket) {
-    /*––––––––––– SOCKET.IO starts here –––––––––––––––*/
 
     console.log('A new user has connected: ' + socket.id);
 
     // Listeners
     socket.on('lobby', function() {
 
-      // Let's make sure we leave any possible rooms
-      leaveAllRooms(socket);
+      leaveAllPolls(socket);
 
-      // Emit to all clients
-      socket.emit('room-list', {
-        rooms: rooms
+      socket.emit('poll-list', {
+        polls: polls
       });
     });
 
+    // Creating a new poll
+    socket.on('create-poll', function(data) {
 
+      var id = createId(7);
 
-    // Creating a new room
-    socket.on('create-room', function(data) {
-
-      var id = createId(7); // Create a random ID
-
-      // new room Object
-      rooms[id] = {         // Add to list of rooms
-        name: data.roomName,   // The name sent by the user
-        choiceOne: data.choiceOne,   // The name sent by the user
-        choiceTwo: data.choiceTwo,   // The name sent by the user
-        choiceThree: data.choiceThree,   // The name sent by the user
-        members: 0        // Number of members in each room
+      polls[id] = {
+        name: data.pollName,
+        choiceOne: data.choiceOne,
+        choiceTwo: data.choiceTwo,
+        choiceThree: data.choiceThree,
+        members: 0
       };
 
       createArr(data.choiceOne, 0, 0);
       createArr(data.choiceTwo, 0, 1);
       createArr(data.choiceThree, 0, 2);
 
-      console.log('New room id: ' + id + ', name: ' + rooms[id].name);
+      console.log('New poll id: ' + id + ', name: ' + polls[id].name);
 
-      // Send to the user who created
-      socket.emit('room-list', {
-        rooms: rooms
+      socket.emit('poll-list', {
+        polls: polls
       });
     });
 
-    // Joining a room
-    socket.on('room', function(roomId){
-      console.log('User ' + socket.id + ' is joining room ' + roomId);
-      socket.join(roomId);
-      rooms[roomId].members ++;
-      socket.emit('joined-room', { room: rooms[roomId] });
+    // Joining a poll
+    socket.on('poll', function(pollId){
+      console.log('User ' + socket.id + ' is joining poll ' + pollId);
+      socket.join(pollId);
+      polls[pollId].members ++;
+      socket.emit('joined-poll', { poll: polls[pollId] });
     });
 
-    // Sending messages
+    // Sending msgs over socket connection
     socket.on('msg-to-server', function(msg) {
       var array_keys = new Array();
       var array_values = new Array();
@@ -135,34 +121,32 @@ MongoClient.connect(uri, function(err, database){
       console.log("keys " + array_keys);
       console.log("vals " + array_values[1]);
 
-      var roomId = array_values[1];
+      var pollId = array_values[1];
       updateVote(msg - 1);
-      polls.save({'_id': roomId, localArray:localArray, writeConcern: {w:1 } }, function(err, result){
+      surveys.save({'_id': pollId, localArray:localArray, writeConcern: {w:1 } }, function(err, result){
         if (err) return console.log(err);
         console.log('saved to database');
       });
-      polls.find({ _id: roomId }).toArray(function(err, result){
+      surveys.find({ _id: pollId }).toArray(function(err, result){
       if (err) return console.log(err);
         console.log('******* located in database');
         console.log(result)
-        io.to(roomId).emit('msg-to-clients', {
+        io.to(pollId).emit('msg-to-clients', {
           msg: msg,
-          roomId: roomId,
+          pollId: pollId,
           blob: result
         });
       });
     });
 
-
     // Disconnecting
     socket.on('disconnect', function() {
-      leaveAllRooms(socket);
-      io.sockets.emit('bye', 'See you, ' + socket.id + '!');
+      leaveAllPolls(socket);
     });
   });
 
-  function leaveAllRooms(socket){;
-    console.log('Called leaveAllRooms.');
+  function leaveAllPolls(socket){;
+    console.log('Called leaveAllPolls.');
 
     var array_keys = new Array();
     var array_values = new Array();
@@ -175,19 +159,16 @@ MongoClient.connect(uri, function(err, database){
     console.log("vals " + array_values[1]);
 
     for(var i = 1; i < array_values.length; i++){
-      var roomId = array_values[i];
-      console.log("room id is  ** "  + roomId);
-      socket.leave(roomId);
-      rooms[roomId].members --;
-      console.log('Leaving ' + roomId + '. Members: ' + rooms[roomId].members);
+      var pollId = array_values[i];
+      console.log("poll id is  ** "  + pollId);
+      socket.leave(pollId);
+      polls[pollId].members --;
+      console.log('Leaving ' + pollId + '. Members: ' + polls[pollId].members);
     }
   };
 
   // https://gist.github.com/gordonbrander/2230317
   function createId(n) {
-    // Math.random should be unique because of its seeding algorithm.
-    // Convert it to base 36 (numbers + letters), and grab the first 7 characters
-    // after the decimal.
     return Math.random().toString(36).substr(2, n);
   }
 });

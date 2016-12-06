@@ -1,4 +1,4 @@
-* {	box-sizing: border-box; }
+* {box-sizing: border-box; }
 
 body, html {
   width: 100%;
@@ -8,8 +8,11 @@ body, html {
   padding: 20px;
   font-weight: lighter;
   text-align: center;
+  background-color:#F4F4F4 !important;
 }
-
+hr{
+  border-top:3px solid #FC4A1A !important;
+}
 h1, h2, h3, h4, h5, h6{
   font-weight: lighter;
   padding: 0;
@@ -18,22 +21,30 @@ h1, h2, h3, h4, h5, h6{
 
 a:link, a:visited, a:active, a:hover{
   outline: 0;
-  color: rgb(255, 50, 180);
+  color: black;
 }
 
+.form-control{
+  border:2px solid #F7B733 !important;
+}
+
+.btn-default{
+ border:2px solid #F7B733 !important;
+ background-color: #F7B733 !important;
+}
 #main-container{
   text-align: left;
   padding: 20px;
 }
 
-#chat-input {
-    width: calc(100% - 40px);
-    max-width: 700px;
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  background-color:beige;
+#vote-input {
+  width: calc(100% - 40px);
+  max-width: 700px;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 #chart{
   width:calc(100% - 40px);
@@ -44,14 +55,13 @@ svg{
 }
 
 #list-container{
-      background-color: burlywood;
-      margin-bottom:20px;
-      width: calc(100% - 40px);
+  margin-bottom:20px;
+  width: calc(100% - 40px);
 }
 
-#js-btn-create-room{
-    margin-top: 10px;
-    padding: 5px 12px;
+#js-btn-create-poll{
+  margin-top: 10px;
+  padding: 5px 12px;
 }
 
 input, button{
@@ -88,7 +98,7 @@ h1{
   font-size: 13px;
 }
 
-.room-item {
+.poll-item {
   font-size: 34px;
 }
 
@@ -97,76 +107,75 @@ h1{
   margin: 0px;
 }
 
-.chat-item {
+.vote-item {
   width: 100%;
   margin: 10px 0px;
 }
 
 header{
-  background-color:pink;
+  background-color:#4ABDAC;
 }
 footer{
-  background-color:pink;
+  background-color:#4ABDAC;
   position:fixed;
-   left:0px;
-   bottom:0px;
-   height:30px;
-   width:100%;
+  left:0px;
+  bottom:0px;
+  height:30px;
+  width:100%;
 }
 
 /*d3.js*/
 html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed,
-    figure, figcaption, footer, header, hgroup,
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font: inherit;
-      font-size: 100%;
-      vertical-align: baseline;
-      font-family:  'Josefin Sans', sans-serif;
-      font-weight: inherit;
-    }
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family:  'Josefin Sans', sans-serif;
+  font-weight: inherit;
+}
 
-    h1 {
-      font-size:150%;
-      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-      font-weight: 300;
-      text-align: left;
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-    h2 {
-      font-size: 12px;
-      font-style: italic;
-      color: gray;
-      margin-top:5px;
-      margin-bottom:5px;
-    }
-    #chart{
-      width:600px;
-      height:400px;
-    }
-    .bar{
-      fill:#eaeaea;
-    }
-    text.label{
-      fill: #777777;
-      color: #777777;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    text.category{
-      fill: #666666;
-      font-size: 14px;
-    }
+h1 {
+  font-size:150%;
+  font-weight: 300;
+  text-align:center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+h2 {
+  font-size: 12px;
+  font-style: italic;
+  color: gray;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+#chart{
+  width:600px;
+  height:400px;
+}
+.bar{
+  fill:#eaeaea;
+}
+text.label{
+  fill: #777777;
+  color: #777777;
+  font-size: 20px;
+  font-weight: bold;
+}
+text.category{
+  fill: #666666;
+  font-size: 14px;
+}
