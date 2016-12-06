@@ -2,14 +2,29 @@
 
 body, html {
   width: 100%;
-  height: 100%;
   font-family: 'Josefin Sans', sans-serif;
   color: #333;
   padding: 20px;
   font-weight: lighter;
   text-align: center;
   background-color:#F4F4F4 !important;
+  min-height:100vh; 
+  position:relative; 
+  padding-bottom:30px
 }
+
+header{
+  background-color:#4ABDAC;
+}
+footer{
+  background-color:#4ABDAC;
+   position: absolute; 
+    left: 0 ; 
+    right: 0;
+     bottom: 0; 
+    height:30px 
+  }
+
 hr{
   border-top:3px solid #FC4A1A !important;
 }
@@ -28,6 +43,10 @@ a:link, a:visited, a:active, a:hover{
   border:2px solid #F7B733 !important;
 }
 
+.form-group{
+  margin-bottom:50px !important;
+}
+
 .btn-default{
  border:2px solid #F7B733 !important;
  background-color: #F7B733 !important;
@@ -37,12 +56,25 @@ a:link, a:visited, a:active, a:hover{
   padding: 20px;
 }
 
+#list-container{
+  width: calc(100% - 40px);
+  max-width: 700px;
+  padding: 10px;
+  margin-bottom:20px;
+}
+
+.poll-item{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
 #vote-input {
   width: calc(100% - 40px);
   max-width: 700px;
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom:90px;
 }
 
 
@@ -52,11 +84,6 @@ a:link, a:visited, a:active, a:hover{
 
 svg{
   width:calc(100% - 40px);
-}
-
-#list-container{
-  margin-bottom:20px;
-  width: calc(100% - 40px);
 }
 
 #js-btn-create-poll{
@@ -112,17 +139,6 @@ h1{
   margin: 10px 0px;
 }
 
-header{
-  background-color:#4ABDAC;
-}
-footer{
-  background-color:#4ABDAC;
-  position:fixed;
-  left:0px;
-  bottom:0px;
-  height:30px;
-  width:100%;
-}
 
 /*d3.js*/
 html, body, div, span, applet, object, iframe,
