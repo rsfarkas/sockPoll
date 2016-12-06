@@ -1,5 +1,3 @@
-/* your style begins here */
-
 * {	box-sizing: border-box; }
 
 body, html {
@@ -29,8 +27,11 @@ a:link, a:visited, a:active, a:hover{
 }
 
 #chat-input {
-  width: calc(100% - 40px);
-  padding: 10px;
+    width: calc(100% - 40px);
+    max-width: 700px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
   background-color:beige;
 }
 
@@ -100,6 +101,19 @@ h1{
   width: 100%;
   margin: 10px 0px;
 }
+
+header{
+  background-color:pink;
+}
+footer{
+  background-color:pink;
+  position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+}
+
 /*d3.js*/
 html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -138,10 +152,6 @@ html, body, div, span, applet, object, iframe,
       color: gray;
       margin-top:5px;
       margin-bottom:5px;
-    }
-    #everything{
-      width:600px;
-      margin:20px;
     }
     #chart{
       width:600px;

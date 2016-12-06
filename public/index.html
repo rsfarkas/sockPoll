@@ -17,15 +17,13 @@
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 </head>
 <body>
-
+ <header>HEADER</header>
   <div id="main-container" class="container-fluid"></div>
   <!-- Templates -->
-
   <!-- Lobby -->
   <script id="tpl-lobby" type="text/html">
 
-    <h1>Polls</h1>
-
+    <h1>Current Polls</h1>
     <!-- List of chat rooms -->
     <div id="list-container">
       <% for(var roomId in data){ %>
@@ -39,6 +37,7 @@
     </div>
 
     <!-- Input -->
+     <h1>Create a Poll</h1>
     <div id="chat-input">
       <div>
       <div class="form-group">
@@ -57,14 +56,13 @@
         <label for="choice1">Option 3:</label>
          <input type="text" class="form-control" id="js-ipt-room-choiceThree" placeholder="Enter 3rd option" name="choiceThree"></input>
       </div>
-  </div>
-<button class="btn btn-default" id="js-btn-create-room" value="CREATE">Create</button>
-</div>
+    </div>
+    <button class="btn btn-default" id="js-btn-create-room" value="CREATE">Create</button>
+    </div>
+  </script>
 
-</script>
-
-<!-- Chatroom -->
-<script id="tpl-room" type="text/html">
+  <!-- Chatroom -->
+  <script id="tpl-room" type="text/html">
   <a href="#/lobby">< Back to list of Polls</a>
   <h1>Question: <%= data.room.name %></h1>
   <div id="ballot">
@@ -94,11 +92,10 @@
   <div class="list-container">
     <!-- Messages -->
     <div id="chat-container"></div>
+  </script>
 
-</script>
-
-<!-- Chat item -->
-<script id="tpl-chat-item" type="text/html">
+  <!-- Chat item -->
+  <script id="tpl-chat-item" type="text/html">
   <div class="chat-item">
     <div class="body-aux">
     </div>
@@ -108,18 +105,19 @@
   <div id="chart"></div>
   <script>
   </script>
+  </script>
 
-</script>
+  <!-- Chart  -->
+  <script id="tpl-chart" type="text/html">
+  </script>
 
-<!-- Chart  -->
-<script id="tpl-chart" type="text/html">
-</script>
-
-
-</script>
     <!-- Don't add this as a file!
     The path will be created when you run the server -->
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/moment.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+  <footer>FOOTER</footer>  
+</body>
+</html>
+

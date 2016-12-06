@@ -3,22 +3,17 @@
 var app = app || {};
 
 app.main = (function() {
-  console.log('Your code starts here!');
-
   var socket;
 
   // connect to socket server
   var socketSetup = function(callback){
-    console.log('Called socketStart.');
     socket = io.connect();
 
     socket.on('room-list', function(res) {
-      console.log(res);
       render('lobby', '#main-container', 'replace', res.rooms);
     });
 
     socket.on('joined-room', function(res) {
-      console.log(res);
       render('room', '#main-container', 'replace', {room: res.room});
     });
 
@@ -96,10 +91,6 @@ app.main = (function() {
                 });
                 x.domain([0,barmax]);
 
-                /////////
-                //ENTER//
-                /////////
-
                 //Bind new data to chart rows
 
                 //Create chart row and move to below the bottom of the chart
@@ -140,11 +131,6 @@ app.main = (function() {
                   .attr("dx","0.5em")
                   .text(function(d){return d.key});
 
-
-                //////////
-                //UPDATE//
-                //////////
-
                 //Update bar widths
                 chartRow.select(".bar").transition()
                   .duration(300)
@@ -168,20 +154,12 @@ app.main = (function() {
                   .attr("opacity",1);
 
 
-                ////////
-                //EXIT//
-                ////////
-
                 //Fade out and remove exit elements
                 chartRow.exit().transition()
                   .style("opacity","0")
                   .attr("transform", "translate(0," + (height + margin.top + margin.bottom) + ")")
                   .remove();
 
-
-                ////////////////
-                //REORDER ROWS//
-                ////////////////
 
                 var delay = function(d, i) { return 200 + i * 30; };
 
@@ -207,7 +185,6 @@ app.main = (function() {
                 .slice(0, 10);
               }
 
-              //I like to call it what it does
               var redraw = function(settings){
                 pullData(settings,redrawChart)
               }
@@ -314,8 +291,6 @@ app.main = (function() {
       // Store input value in var char_msg
       var chat_msg = $('#js-ipt-text').val();
 
-        /* Check input string with regex (regular expression)
-        http://www.regexr.com/ */
       var re = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
       var isScript;
       isScript = re.test(chat_msg);
@@ -346,3 +321,5 @@ app.main = (function() {
 })();
 
 window.addEventListener('DOMContentLoaded', app.main.init);
+
+//http://bl.ocks.org/charlesdguthrie/11356441//
