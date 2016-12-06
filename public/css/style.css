@@ -27,20 +27,37 @@ footer{
 
 hr{
   border-top:3px solid #FC4A1A !important;
+  clear:both;
 }
 h1, h2, h3, h4, h5, h6{
   font-weight: lighter;
   padding: 0;
   margin: 0;
+  text-align:center;
 }
 
 a:link, a:visited, a:active, a:hover{
   outline: 0;
   color: black;
 }
+#graph{
+  max-width:400px;
+  float:right;
+}
 
+#heroText{
+  float:left;
+}
+#mainTitle{
+  font-size:50px;
+}
 .form-control{
   border:2px solid #F7B733 !important;
+}
+
+#hero{
+  margin-top:90px;
+  margin-bottom:90px;
 }
 
 .form-group{
@@ -61,6 +78,8 @@ a:link, a:visited, a:active, a:hover{
   max-width: 700px;
   padding: 10px;
   margin-bottom:20px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .poll-item{
@@ -78,17 +97,19 @@ a:link, a:visited, a:active, a:hover{
 }
 
 
-#chart{
-  width:calc(100% - 40px);
-}
-
 svg{
   width:calc(100% - 40px);
+  height:auto;
+}
+
+#chart{
+  width:calc(100% - 40px);
+  height:auto;;
 }
 
 #js-btn-create-poll{
   margin-top: 10px;
-  padding: 5px 12px;
+  padding: 20px 64px;
 }
 
 input, button{
@@ -158,7 +179,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
-  font-size: 100%;
+  font-size: 105%;
   vertical-align: baseline;
   font-family:  'Josefin Sans', sans-serif;
   font-weight: inherit;
@@ -178,12 +199,9 @@ h2 {
   margin-top:5px;
   margin-bottom:5px;
 }
-#chart{
-  width:600px;
-  height:400px;
-}
+
 .bar{
-  fill:#eaeaea;
+  fill:#F7B733;
 }
 text.label{
   fill: #777777;
