@@ -153,9 +153,10 @@ svg{
   margin-bottom:100px;
 }
 
-#js-btn-create-poll{
-  margin-top: 10px;
-  padding: 20px 64px;
+#js-btn-create-poll, #js-btn-vote-radio{
+  width: 128px;
+  height: 40px;
+  font-size: 19px;
 }
 
 input, button{
