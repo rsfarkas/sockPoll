@@ -79,10 +79,11 @@
   <!-- poll -->
   <script id="tpl-poll" type="text/html">
   <a href="#/lobby">< Back to list of Polls</a>
-  <h1>Question: <%= data.poll.name %></h1>
+  <h2>Question: <%= data.poll.name %></h2>
   <div id="ballot">
-      <fieldset class="form-group">
-          <legend>Radio buttons</legend>
+      <div class="form-group">
+          <h3>Vote anonymously</h3>
+          <hr>
           <div class="radio">
             <label>
               <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="1" checked>
@@ -101,7 +102,7 @@
                 <%= data.poll.choiceThree %>
             </label>
           </div>
-      </fieldset>
+      </div>
       <button type="submit" id="js-btn-vote-radio" class="btn btn-primary">Submit</button>
   </div>
   <div class="list-container">

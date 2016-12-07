@@ -1,7 +1,8 @@
 * {box-sizing: border-box; }
 
 body, html {
-  width: 100%;
+  max-width: 100%;
+   overflow-x: hidden;
   font-family: 'Josefin Sans', sans-serif;
   color: #333;
   padding: 20px;
@@ -51,9 +52,15 @@ a:link, a:visited{
 a:focus, a:active, a:hover{
   color:#FC4A1A !important;
 }
+
 li{
   list-style-type: none;
   display:inline;
+}
+
+h1{
+  margin-top:40px !important;
+  margin-top:20px !important;
 }
 
 #graph{
@@ -90,6 +97,18 @@ li{
   border-color: #F7B733 !important;
 }
 
+.radio input[type=radio], .radio-inline input[type=radio]{
+  margin-left: -34px !important;
+}
+
+.radio label {
+  padding-left: 37px !important;
+}
+
+.radio{
+  margin-top:20px !important;
+}
+
 #main-container{
   text-align: left;
   padding: 20px;
@@ -116,18 +135,22 @@ li{
   padding: 10px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom:90px;
+  margin-bottom:140px;
 }
 
+#ballot{
+  margin-bottom:140px;
+}
 
 svg{
   width:calc(100% - 40px);
-  height:auto;
 }
 
 #chart{
   width:calc(100% - 40px);
-  height:auto;;
+  height:auto;
+  margin-top:25px;
+  margin-bottom:100px;
 }
 
 #js-btn-create-poll{
@@ -208,34 +231,18 @@ time, mark, audio, video {
   font-weight: inherit;
 }
 
-h1 {
-  font-size:150%;
-  font-weight: 300;
-  text-align:center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-h2 {
-  font-size: 12px;
-  font-style: italic;
-  color: gray;
-  margin-top:5px;
-  margin-bottom:5px;
-}
 
 .bar{
   fill:#F7B733;
 }
 
 text.label{
-  fill: #777777;
-  color: #777777;
   font-size: 20px;
   font-weight: bold;
 }
+
 text.category{
-  fill: #666666;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 @media only screen and (min-width: 990px){
