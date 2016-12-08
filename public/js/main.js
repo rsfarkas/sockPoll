@@ -7,7 +7,7 @@ app.main = (function() {
     socket = io.connect();
 
     socket.on('poll-list', function(res) {
-      render('lobby', '#main-container', 'replace', res.polls);
+      render('index', '#main-container', 'replace', res.polls);
     });
 
     socket.on('joined-poll', function(res) {
@@ -18,6 +18,7 @@ app.main = (function() {
       render('vote-item', '#vote-container', 'append', {
         blob: res.blob,
       });
+      console.log("BLOOBBB***e" + res.blob);
       var localArray = [];
 
       function createArr(key, value, index) {
@@ -27,17 +28,10 @@ app.main = (function() {
         };
       };
 
-      function blobConverter(blob){
-        zero = $.map(blob[0]['localArray'][0], function(el) { return el });
-        one = $.map(blob[0]['localArray'][1], function(el) { return el });
-        two = $.map(blob[0]['localArray'][2], function(el) { return el });
-        createArr(zero[0], zero[1], 0)
-        createArr(one[0], one[1], 1)
-        createArr(two[0], two[1], 2)
-        return localArray;
-      };
+      createArr(res.blob.choiceOne, res.blob.votesOne, 0);
+      createArr(res.blob.choiceTwo, res.blob.votesTwo, 1);
+      createArr(res.blob.choiceThree, res.blob.votesThree, 2);
 
-      blobConverter(res.blob);
 
       var setup = function(targetID){
                 //Set size of svg element and chart
@@ -196,7 +190,7 @@ var hashRouter = function(){
     var currentPage = location.hash.substring(2, location.hash.length);
     console.log('Current hash is ' + currentPage);
 
-    if(currentPage === 'lobby'){
+    if(currentPage === 'index'){
       loadData(currentPage);
 
     }else if(currentPage.indexOf('/') > -1){
@@ -277,13 +271,12 @@ var attachEvents = function(){
     hashRouter();
     socketSetup();
     attachEvents();
-    location.hash = '/lobby';
+    location.hash = '/index';
   };
 
   return {
     init: init
   };
-
 })();
 
 window.addEventListener('DOMContentLoaded', app.main.init);
